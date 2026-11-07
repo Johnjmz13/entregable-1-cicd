@@ -1,0 +1,31 @@
+name: Entregable 1 - Mi primer workflow  # 1. Nombre que aparece en la pestaña Actions
+
+on:
+  push: # 2. Se dispara al subir cambios (git push) a la rama main
+    branches:
+      - main
+  workflow_dispatch: # 2b. Habilita el botón "Run workflow" para ejecutarlo a mano
+
+permissions:
+  contents: read
+
+jobs:
+  imprimir_info:  # No cambies este nombre, lo usaremos para evaluar
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7  # Este paso clona tu repositorio. No lo modifiques.
+
+      - name: Imprimir Mensaje Personalizado
+        shell: bash
+        run: |
+          echo "Hola, soy John Jimenez y este es mi primer workflow!"
+          echo "La fecha y hora actual es: $(date)"
+
+      - name: Configurar Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: '3.13' # 6. Entre comillas para que YAML lo lea como texto
+
+      - name: Ejecutar script Python
+        run: python mi_script.py # 7. Ejecuta el script que descargó actions/checkout
